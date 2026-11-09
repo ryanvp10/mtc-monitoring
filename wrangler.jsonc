@@ -1,0 +1,13 @@
+{
+  // Cloudflare Worker that serves the built PWA as static assets.
+  // The Hono API for sync will be added here in Phase 3 (/api/* routes).
+  "name": "mtc-01",
+  "compatibility_date": "2026-11-01",
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "single-page-application"
+  },
+  "observability": {
+    "enabled": true
+  }
+}
