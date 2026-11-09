@@ -1,12 +1,14 @@
 # mtc-01
 
 A small CMMS (Computerized Maintenance Management System) for maintenance teams whose laptops are
-locked down and whose internet is unreliable. Everything runs in the browser: equipment, sparepart
-stock, preventive maintenance and daily reports are stored in IndexedDB, so the app keeps working
-with no connection at all. Sync to the cloud is optional and user-triggered, and when two devices
-disagree the user picks the winner side by side instead of the app guessing.
+locked down and whose internet is unreliable. The app runs entirely in the browser: records live in
+IndexedDB, so it keeps working with no connection at all. Syncing to the cloud will be optional and
+user-triggered, and when two devices disagree the user picks the winner side by side instead of the
+app guessing.
 
-Built as a public build-in-public project. Status: in development, Phase 0 complete (foundation).
+Built in public. Status: Phase 0 (foundation) verified locally: offline-first skeleton, green
+lint/typecheck/tests/build, deploy config ready. The cloud sync client, stock UI, PM UI and daily
+report UI land in later phases; their pure logic already exists and is tested.
 
 ## Run locally
 
@@ -31,7 +33,7 @@ npm run preview    # serve the production build
 src/db/        Dexie schema, sync metadata, generic repo (create / update / soft delete), queries
 src/lib/       pure logic with tests: pin, stock ledger, PM status, CSV export
 src/sync/      conflict classification (pure); push/pull client arrives in Phase 3
-worker/        Cloudflare Worker: Hono API + static assets (Phase 3)
+worker/        Cloudflare Worker: Hono API + static assets (planned, Phase 3)
 docs/adr/      architecture decision records
 docs/          phase notes
 ```
@@ -59,6 +61,7 @@ Read `docs/adr/` before changing anything in `src/db/` or `src/sync/`.
 
 ## Known limitations
 
-- Demo login only, no real accounts yet.
+- Demo login only, no real accounts yet. The profile PIN is a convenience gate (salted hash in
+  IndexedDB), not authentication.
 - Sync is manual and batch, not realtime.
 - Tested on Chromium. Safari/iOS install flow is untested.

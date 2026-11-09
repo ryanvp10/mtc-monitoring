@@ -72,5 +72,10 @@ One Worker, two jobs:
   together, so a stale frontend can never talk to a newer API.
 - Secrets: one Worker secret for the device-token signing key, set with `wrangler secret put`.
   Nothing else.
+- **Never sync credential material.** `pin_salt` and `pin_hash` live on `Profile`, which extends
+  `SyncMeta`, so the naive per-table push would upload them to D1 and to every device. A 4-digit PIN
+  is 10^4 candidates, so a leaked hash is a leaked PIN. Phase 3 must omit both fields from the wire
+  payload (local-only table or explicit serializer omit list), and the PIN must never be checked
+  server-side.
 - If the demo ever needs genuine multi-tenant auth, the migration path is D1 for data plus an
   identity provider in front, not a rewrite of the sync protocol.

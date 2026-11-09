@@ -16,6 +16,12 @@ dist-ssr
 .wrangler/
 .dev.vars
 
+# Secrets (nothing exists yet; Phase 3 adds these)
+.env
+.env.*
+!.env.example
+*.pem
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
