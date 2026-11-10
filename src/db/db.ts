@@ -6,7 +6,7 @@ export class MtcDb extends Dexie {
   equipment!: Table<Equipment, string>
   sync_state!: Table<{ key: string; value: string }, string>
 
-  constructor(name = 'mtc-01') {
+  constructor(name = 'mtc-monitoring') {
     super(name)
     // Only indexed fields are listed; other fields are stored anyway.
     this.version(1).stores({

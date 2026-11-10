@@ -34,6 +34,29 @@ describe('queryEquipment', () => {
     expect((await queryEquipment({ search: '', line: 'B', page: 0, pageSize: 100 })).total).toBe(25)
     expect((await queryEquipment({ search: '', status: 'breakdown', page: 0, pageSize: 100 })).total).toBe(10)
   })
+  it('searches code and name case-insensitively, trimmed, and reports misses', async () => {
+    const byCode = await queryEquipment({ search: '  eq-00 ', page: 0, pageSize: 100 })
+    expect(byCode.total).toBe(10) // EQ-000..EQ-009
+    expect(byCode.items[0].code).toBe('EQ-000')
+
+    const byName = await queryEquipment({ search: '  PRESS ', page: 0, pageSize: 100 })
+    expect(byName.total).toBe(25)
+
+    const miss = await queryEquipment({ search: 'no such machine', page: 0, pageSize: 100 })
+    expect(miss).toEqual({ items: [], total: 0 })
+  })
+  it('combines search, line and status filters', async () => {
+    // Line A holds EQ-000..EQ-024; breakdown hits every fifth index.
+    const result = await queryEquipment({
+      search: 'eq-',
+      line: 'A',
+      status: 'breakdown',
+      page: 0,
+      pageSize: 100,
+    })
+    expect(result.total).toBe(5)
+    expect(result.items.every((e) => e.line === 'A' && e.status === 'breakdown')).toBe(true)
+  })
   it('hides soft-deleted records', async () => {
     const first = (await queryEquipment({ search: '', page: 0, pageSize: 1 })).items[0]
     await softDelete(db.equipment, first.id)

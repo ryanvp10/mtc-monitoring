@@ -24,5 +24,18 @@ describe('toCsv', () => {
   })
   it('neutralises formula injection', () => {
     expect(toCsv([{ name: '=SUM(A1)', note: '' }], cols)).toContain("'=SUM(A1)")
+    expect(toCsv([{ name: '+cmd|calc', note: '' }], cols)).toContain("'+cmd|calc")
+    expect(toCsv([{ name: '@import', note: '' }], cols)).toContain("'@import")
+  })
+  it('neutralises leading TAB and CR', () => {
+    expect(toCsv([{ name: '\t=SUM(A1)', note: '' }], cols)).toContain("'\t=SUM(A1)")
+    expect(toCsv([{ name: '\r=SUM(A1)', note: '' }], cols)).toContain("'\r=SUM(A1)")
+  })
+  it('keeps legitimate negative numbers as numbers', () => {
+    const out = toCsv([{ name: '-5', note: '-12.5' }], cols)
+    expect(out).toContain('\r\n-5,-12.5')
+    expect(out).not.toContain("'-5")
+    // A dash that is not a number is still guarded.
+    expect(toCsv([{ name: '-5+cmd', note: '' }], cols)).toContain("'-5+cmd")
   })
 })
