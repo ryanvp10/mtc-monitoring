@@ -16,7 +16,7 @@ export default function App() {
 
   return (
     <main style={{ padding: 24, fontFamily: 'system-ui' }}>
-      <h1>mtc-01</h1>
+      <h1>mtc-monitoring</h1>
       <p>Phase 0: offline-first skeleton. Add a record, go offline, reload: data stays.</p>
       <button onClick={addDummy}>Add demo equipment</button>
       <ul>

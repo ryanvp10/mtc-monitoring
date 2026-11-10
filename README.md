@@ -1,4 +1,4 @@
-# mtc-01
+# mtc-monitoring
 
 A small CMMS (Computerized Maintenance Management System) for maintenance teams whose laptops are
 locked down and whose internet is unreliable. The app runs entirely in the browser: records live in

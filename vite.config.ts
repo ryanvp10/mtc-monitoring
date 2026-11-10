@@ -9,8 +9,8 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.svg'],
       manifest: {
-        name: 'mtc-01 CMMS',
-        short_name: 'mtc-01',
+        name: 'mtc-monitoring CMMS',
+        short_name: 'mtc-monitoring',
         description: 'Offline-first maintenance management (CMMS) demo',
         start_url: '/',
         display: 'standalone',
