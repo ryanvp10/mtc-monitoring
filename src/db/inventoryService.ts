@@ -79,7 +79,8 @@ export async function listMovements(partId: string): Promise<StockMovement[]> {
   const rows = await db.stock_movements.where('part_id').equals(partId).toArray()
   return rows
     .filter((row) => row.deleted_at === null)
-    .sort((a, b) => b.created_at - a.created_at)
+    // Movements can share a millisecond; tie-break on id so the order is stable.
+    .sort((a, b) => b.created_at - a.created_at || b.id.localeCompare(a.id))
 }
 
 /** Deleting a part is admin-only; movements stay in the ledger untouched. */

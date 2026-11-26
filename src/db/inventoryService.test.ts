@@ -110,10 +110,10 @@ describe('recordMovement', () => {
       note: '  bearing replacement  ',
       machine_id: 'eq-1',
     })
-    const [movement] = await listMovements(part.id)
-    expect(movement.note).toBe('bearing replacement')
-    expect(movement.machine_id).toBe('eq-1')
-    expect(movement.version).toBe(1)
+    const movement = (await listMovements(part.id)).find((row) => row.type === 'out')
+    expect(movement?.note).toBe('bearing replacement')
+    expect(movement?.machine_id).toBe('eq-1')
+    expect(movement?.version).toBe(1)
   })
 })
 
