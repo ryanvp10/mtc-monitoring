@@ -32,6 +32,15 @@ export interface Equipment extends SyncMeta {
 export type Payload<T extends SyncMeta> = Omit<T, keyof SyncMeta>
 
 // ---- Phase 2 ----
+/** Spare part master data. Deliberately has no `stock` field: stock is derived (ADR-004). */
+export interface SparePart extends SyncMeta {
+  code: string
+  name: string
+  category: string
+  unit: string
+  min_stock: number
+}
+
 /** Append-only stock ledger entry. Stock is derived from movements (see ADR-004). */
 export interface StockMovement extends SyncMeta {
   part_id: string

@@ -18,3 +18,14 @@ export function assertCanDeleteEquipment(role: Role | null | undefined): void {
     throw new ForbiddenError('Only an admin can delete equipment')
   }
 }
+
+/** Same rule for spare parts: deleting master data is admin-only. */
+export function canDeletePart(role: Role | null | undefined): boolean {
+  return role === 'admin'
+}
+
+export function assertCanDeletePart(role: Role | null | undefined): void {
+  if (!canDeletePart(role)) {
+    throw new ForbiddenError('Only an admin can delete spare parts')
+  }
+}

@@ -6,9 +6,10 @@ IndexedDB, so it keeps working with no connection at all. Syncing to the cloud w
 user-triggered, and when two devices disagree the user picks the winner side by side instead of the
 app guessing.
 
-Built in public. Status: Phase 0 (foundation) verified locally: offline-first skeleton, green
-lint/typecheck/tests/build, deploy config ready. The cloud sync client, stock UI, PM UI and daily
-report UI land in later phases; their pure logic already exists and is tested.
+Built in public. Status: Phase 2 (inventory) verified locally and live: profile login, equipment
+CRUD, spare parts with an append-only stock ledger, low stock alert, search/pagination at 1000+
+parts, green lint/typecheck/tests/build, auto-deploy on push to `main`. The sync client, PM UI and
+daily report UI land in later phases; their pure logic already exists and is tested.
 
 ## Run locally
 
@@ -33,10 +34,12 @@ npm run preview    # serve the production build
 src/db/        Dexie schema, sync metadata, generic repo (create / update / soft delete), queries
 src/lib/       pure logic with tests: pin, stock ledger, PM status, CSV export
 src/sync/      conflict classification (pure); push/pull client arrives in Phase 3
-worker/        Cloudflare Worker: Hono API + static assets (planned, Phase 3)
 docs/adr/      architecture decision records
 docs/          phase notes
 ```
+
+Stock is never stored on a spare part. `src/lib/stock.ts` derives it from `stock_movements`, and
+`src/db/inventoryService.ts` is the only writer: no update, no delete, corrections are new movements.
 
 ## Decisions
 

@@ -608,6 +608,166 @@
   padding: 20px;
 }
 
+/* ---------- phase 2: inventory ---------- */
+
+.app-nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+  margin-right: auto;
+  margin-left: 18px;
+}
+
+.nav-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: none;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.nav-tab:hover {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.nav-tab.is-active {
+  background: var(--accent-soft);
+  border-color: var(--accent-soft);
+  color: var(--accent);
+}
+
+.nav-badge {
+  display: inline-block;
+  min-width: 20px;
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: var(--danger);
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.data-table-wrap {
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.data-table th {
+  text-align: left;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--faint);
+  background: #f7f8f7;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--line);
+}
+
+.data-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.data-table tr:last-child td {
+  border-bottom: none;
+}
+
+.stock-pill {
+  display: inline-block;
+  min-width: 34px;
+  padding: 2px 9px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.stock-ok {
+  background: var(--ok-soft);
+  color: var(--ok);
+}
+
+.stock-low {
+  background: var(--danger-soft);
+  color: var(--danger);
+}
+
+.stock-pill-note {
+  font-weight: 600;
+}
+
+.unit-note {
+  color: var(--faint);
+  font-size: 12px;
+}
+
+.movement-pill {
+  display: inline-block;
+  padding: 2px 9px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.movement-in {
+  background: var(--ok-soft);
+  color: var(--ok);
+}
+
+.movement-out {
+  background: var(--warn-soft);
+  color: var(--warn);
+}
+
+.field-checkbox {
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  flex: 0 1 auto;
+  padding-bottom: 9px;
+  font-size: 14px;
+}
+
+.movement-form {
+  padding: 18px 20px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  gap: 12px;
+}
+
+.section-title {
+  font-size: 15px;
+}
+
+.form-ok {
+  color: var(--ok);
+  font-size: 14px;
+  font-weight: 600;
+}
+
 /* ---------- narrow screens ---------- */
 
 @media (max-width: 640px) {
@@ -695,5 +855,75 @@
 
   .auth-panel {
     padding: 22px;
+  }
+
+  .app-nav {
+    order: 3;
+    width: 100%;
+    margin: 8px 0 0;
+  }
+
+  .nav-tab {
+    padding: 6px 10px;
+    font-size: 13px;
+  }
+
+  /* Tables become stacked cards: no horizontal scrolling, no truncation. */
+  .data-table-wrap {
+    background: none;
+    border: none;
+    overflow: visible;
+  }
+
+  .data-table thead {
+    display: none;
+  }
+
+  .data-table,
+  .data-table tbody,
+  .data-table tr,
+  .data-table td {
+    display: block;
+    width: auto;
+  }
+
+  .data-table tr {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 12px 14px;
+    margin-bottom: 10px;
+  }
+
+  .data-table tr:last-child {
+    margin-bottom: 0;
+  }
+
+  .data-table td {
+    border: none;
+    padding: 3px 0;
+    text-align: left;
+  }
+
+  .data-table td[data-label]::before {
+    content: attr(data-label);
+    display: block;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--faint);
+  }
+
+  .data-table td.col-actions {
+    text-align: left;
+    padding-top: 8px;
+  }
+
+  .data-table td.col-actions .row-actions {
+    justify-content: flex-start;
+  }
+
+  .movement-form {
+    padding: 14px;
   }
 }
